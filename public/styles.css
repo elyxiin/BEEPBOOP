@@ -1,0 +1,168 @@
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* menu */
+
+.menu-screen,
+.menu-screen * {
+  box-sizing: border-box;
+  height: 100%;
+}
+.menu-screen {
+  background: #bbbff3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.beepboop {
+  width: 100%;
+  flex: 1;
+  max-width: 1134px;
+  max-height: 355px;
+  position: relative;
+  object-fit: cover;
+ 
+}
+.remote {
+  background: #192f4e;
+  border-radius: 25px 25px 0px 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 150px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+  width: 100%;
+  flex: 1;
+  max-width: 1238px;
+  position: relative;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+.button {
+  flex-shrink: 0;
+  width: 346px;
+  height: 558px;
+  position: relative;
+}
+.beepboopText {
+  color: #fdf3f0;
+  text-align: center;
+  font-family: "RobotoMono-Bold", sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  position: absolute;
+  left: 96px;
+  top: 0px;
+}
+.onOffButton {
+  width: 346px;
+  height: 308px;
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+  top: 94px;
+  object-fit: cover;
+  cursor: pointer;
+  z-index:2
+}
+.acronym {
+  color: #fdf3f0;
+  text-align: center;
+  font-family: "RobotoMono-Bold", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  position: absolute;
+  left: 0px;
+  top: 412px;
+}
+.desc {
+  color: #fdf3f0;
+  text-align: left;
+  font-family: "RobotoMono-Regular", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: absolute;
+  left: 76.5px;
+  top: 506px;
+}
+
+/* return button */
+
+.returnButton,
+.returnButton * {
+  box-sizing: border-box;
+}
+.returnButton {
+  border-radius: 13px;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+
+
+/* 3D canvas */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0; 
+    width: 100vw;
+    height: 100vh;
+} 
+
+
+/* Pop-Up Styles */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #214e3fdc;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 100;
+  color: #fdf3f0;
+  width: 300px;
+  text-align: left;
+  pointer-events: auto;
+  font-size:20px;
+}
+
+.popupHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2b523b;
+  color: #fdf3f0;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+}
+
+#popupTitle {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.closeButton {
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 10px;
+  margin-left: 10px;
+  z-index: 1000; 
+}

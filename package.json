@@ -1,0 +1,14 @@
+{
+  "name": "netzerohome",
+  "version": "1.0.0",
+  "description": "3D Scene using Three.js",
+  "scripts": {
+    "start": "http-server public"
+  },
+  "dependencies": {
+    "three": "^0.171.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@v0.171.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@v0.171.0/examples/jsm/"
+      }
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BEEP BOOP!</title>
+</head>
+
+<body>
+  <div class="menu-screen">
+    <img class="beepboop" src=".\images\BEEPBOOP.png" />
+    <div class="remote">
+
+      <!-- on button -->
+      <div class="button">
+        <div class="beepboopText">BEEP</div>
+        <img id="turnOn" class="onOffButton" src="./images/onButton.png" />
+        <div class="acronym">
+          Beneficial Energy
+          <br />
+          Efficiency Project
+        </div>
+        <div class="desc">
+          Turn on electric
+          <br />
+          appliances
+        </div>
+      </div>
+
+      <!-- off button-->
+      <div class="button">
+        <div class="beepboopText">BOOP</div>
+        <img id="turnOff" class="onOffButton" src="./images/offButton.png" />
+        <div class="acronym">
+          Burning Out
+          <br />
+          Outdated Practices
+        </div>
+        <div class="desc">
+          Turn off your
+          <br />
+          fossil fuels
+        </div>
+        </div>
+      </div>
+    </div>
+    <img id="return" class="returnButton" src=".\images\returnButton.svg" />
+
+    <div id="popup" class="popup" style="display: none;">
+      <div class="popupHeader">
+        <span id="popupTitle" class="popupTitle">Popup</span>
+        <span id="closePopup" class="closeButton">&times;</span>
+      </div>
+      <div class="popupContent">
+        <p id="popupText">Placeholder text</p>
+        <div class="popupNavigation">
+          <button id="prevButton" class="navigationButton" style="display: none;">&larr; Back</button>
+          <button id="nextButton" class="navigationButton" style="display: none;">Next &rarr;</button>
+        </div>
+      </div>
+    </div>
+    
+    <canvas id="three-canvas"></canvas>
+   <script src="main.js" type="module"></script>
+</body>
+</html>
+
