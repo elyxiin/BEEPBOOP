@@ -1,10 +1,28 @@
 {
-    "oven": {
-      "title": "Induction Stove",
-      "sequence": [
-        "Converting from a gas stove to an electric stove is the easiest and cheapest of changes to decarbonize your home. Gas stoves degrade air quality, leading to higher risks of asthma and respiratory illnesses.",
-        "It uses electromagnetic energy to heat pans.",
-        "It's efficient and safe to use."
-      ]
+  "oven": {
+    "title": "Electric Cooking",
+    "sequence": [
+      "Converting from a gas cooktop to an electric cooktop is the easiest and cheapest of changes to decarbonize your home. Gas cooktops degrade air quality, leading to higher risks of asthma and respiratory illnesses - nothing I would like around my home. \n \n Whether you switch to an induction cooktop or a conventional electric cooktop, the change will be a step towards modernizing your kitchen and enhancing your kitchen experience.",
+      "Induction cooktops are engineered with safety in mind. Unlike traditional gas stoves, an induction cooktop activated without cookware remains relatively cool. This is no oversight; It is an intentional design feature. Heat is generated directly within the cookware through electric pulses, ensuring the cooktop itself stays much cooler compared to the surface of a gas stove. \n \n Despite the heat generated on the cooktop itself being lower, the time to properly heat up the cookware is quicker and the temperature is more accurate.",
+      "Induction cooktops require complementary cookware - cookware that only works with magnetic metals such as cast iron, carbon steel and stainless steel. Electric cooktops are compatible with any type of cookware. Electric cooktops also hold an advantage for users who want to stick to something more similar to the gas stove. \n \n Induction cooktops are far more energy efficient than gas stoves and a little more energy efficient than electric cooktops, saving money for induction cooktop users. However, the prices of electric cooktops tend to be lower than that of induction cooktops, making it a more viable option for potential buyers."
+    ]
+  },
+  "water": {
+    "title": "Water Heating",
+    "sequence": [
+      "A hybrid water heater, often referred to as a “heat pump water heater,” is a completely electric method of water heating. It transfers heat from the surrounding air to heat water, making it highly energy-efficient. Government and utility incentives, including rebates and tax credits, are available to encourage adoption. However, hybrid water heaters rely on the climate to heat water, making them best suited for mild climates where sufficient heat can be extracted from the air.",
+      "In contrast, traditional electric water heaters use resistive heating, directly converting electrical energy into heat to warm water. They can be adopted across a wider range of areas. However, on most occasions, electric water heaters can be more pricey on the installation and on the electric bill."
+    ]
+  },
+  "airSourceHP": {
+    "title": "Heat Pumps",
+    "sequence": [
+      "This is an air-source heat pump, the most common type of heat pump. It transfers heat between the house and the outside air. Deceptive to their name, modern heat pumps can both heat and cool your home. While most heat pumps perform best in mild climates, new technologies are emerging to accommodate colder regions. The other relatively common type of heat pump is the geothermal heat pump, which uses consistent temperature of the Earth to regulate temperatures in the home.",
+      "Heat pumps come in two primary configurations: ductless mini-splits and ducted systems.",
+      "Mini split systems control individual room temperatures, with each room requiring its own air handler. These systems are easier to install, making them a great option for homes that are not compatible with traditional HVAC systems - no tearing apart of the house needed. Ducted systems also have a reputation for losing energy; Ductless systems can avoid this downside. ",
+      "For many, individual room temperature control may be a selling point for ductless heat pumps. However, it can also work conversely: homeowners may want universal control over the temperature of their home.  A ducted system controls the temperature of the entire house. Ducted systems can also be easily added to homes with existing ductwork, making them a practical option for many."
+    ]
     }
-  }
+}
+
+

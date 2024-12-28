@@ -26,20 +26,28 @@ html, body {
 }
 
 .beepboop {
-  width: 100%;
-  flex: 1;
-  max-width: 1134px;
-  max-height: 355px;
+  width:  clamp(100px, 80vw, 110vh);
+  height: auto;
+  object-fit: contain;
+  max-width: 1134px; 
+  max-height: 355px; 
   position: relative;
   object-fit: cover;
- 
 }
+
+@media (max-width: 768px) {
+  .beepboop {
+    max-width: 90%; /* Adjusts the max width for smaller screens */
+    max-height: 250px; /* Adjusts the max height for smaller screens */
+  }
+}
+
 .remote {
   background: #192f4e;
   border-radius: 25px 25px 0px 0px;
   display: flex;
   flex-direction: row;
-  gap: 150px;
+  gap: 5%;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
@@ -50,54 +58,61 @@ html, body {
   position: relative;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.75);
   overflow: hidden;
+  padding: 10px; 
 }
+
 .button {
-  flex-shrink: 0;
-  width: 346px;
-  height: 558px;
+  flex-grow: 1;
+  width: clamp(150px, 20vw, 346px);
+  max-width: 346px; 
+  max-height: 558px; 
   position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .beepboopText {
   color: #fdf3f0;
   text-align: center;
   font-family: "RobotoMono-Bold", sans-serif;
-  font-size: 64px;
+  font-size: clamp(16px, 5vw, 8vh); /* minimum, preferred, max */
   font-weight: 700;
   position: absolute;
-  left: 96px;
-  top: 0px;
+  left: 25%;
+  top: 0;
 }
 .onOffButton {
-  width: 346px;
-  height: 308px;
-  position: absolute;
-  left: 50%;
-  translate: -50%;
-  top: 94px;
-  object-fit: cover;
+  width: clamp(100px, 35vw, 100%);
+  height: clamp(100px, 35vh, 100%);
+  object-fit: contain;
   cursor: pointer;
-  z-index:2
+  z-index: 2;
+  position: absolute;
 }
 .acronym {
   color: #fdf3f0;
   text-align: center;
   font-family: "RobotoMono-Bold", sans-serif;
-  font-size: 32px;
+  font-size: clamp(16px, 4vw, 4vh); 
   font-weight: 700;
   position: absolute;
-  left: 0px;
-  top: 412px;
+  left: 0;
+  top: 75%;
 }
 .desc {
   color: #fdf3f0;
-  text-align: left;
+  text-align: center;
   font-family: "RobotoMono-Regular", sans-serif;
-  font-size: 20px;
+  font-size: clamp(12px, 2vh, 2vw); 
   font-weight: 400;
   position: absolute;
-  left: 76.5px;
-  top: 506px;
+  left: 25%;
+  top: 90%;
 }
+
+
 
 /* return button */
 
@@ -138,7 +153,7 @@ canvas {
   border-radius: 10px;
   z-index: 100;
   color: #fdf3f0;
-  width: 300px;
+  width: 20%;
   text-align: left;
   pointer-events: auto;
   font-size:20px;
