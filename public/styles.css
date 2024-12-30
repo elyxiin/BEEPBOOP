@@ -80,7 +80,7 @@ html, body {
   font-size: clamp(16px, 5vw, 8vh); /* minimum, preferred, max */
   font-weight: 700;
   position: absolute;
-  left: 25%;
+  width: 100%;
   top: 0;
 }
 .onOffButton {
@@ -90,25 +90,29 @@ html, body {
   cursor: pointer;
   z-index: 2;
   position: absolute;
+  top: 10%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .acronym {
   color: #fdf3f0;
   text-align: center;
   font-family: "RobotoMono-Bold", sans-serif;
+  width: 100%;
   font-size: clamp(16px, 4vw, 4vh); 
   font-weight: 700;
   position: absolute;
   left: 0;
-  top: 75%;
+  top: 70%;
 }
 .desc {
   color: #fdf3f0;
   text-align: center;
   font-family: "RobotoMono-Regular", sans-serif;
   font-size: clamp(12px, 2vh, 2vw); 
+  width: 100%;
   font-weight: 400;
   position: absolute;
-  left: 25%;
   top: 90%;
 }
 
@@ -153,10 +157,16 @@ canvas {
   border-radius: 10px;
   z-index: 100;
   color: #fdf3f0;
-  width: 20%;
+  width: 30%;
   text-align: left;
   pointer-events: auto;
   font-size:20px;
+}
+
+@media (max-aspect-ratio: 7/6) {
+  .popup {
+    width: 50%;
+  }
 }
 
 .popupHeader {
@@ -181,3 +191,14 @@ canvas {
   margin-left: 10px;
   z-index: 1000; 
 }
+
+/* NYSIO pop-up*/
+.popup a {
+  color: #add8e6; /* Light blue for links */
+  text-decoration: underline;
+}
+
+.popup a:hover {
+  color: #fdf3f0; /* Light color for hover */
+}
+
