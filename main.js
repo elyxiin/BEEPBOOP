@@ -9,6 +9,13 @@ const scene = new THREE.Scene();
 const width = window.innerWidth;
 const height = window.innerHeight;
 
+const renderer = new THREE.WebGLRenderer({
+  antialias: true,
+  logarithmicDepthBuffer: true,
+});
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
 let camera = new THREE.PerspectiveCamera(
   75,
   width / height,
@@ -23,13 +30,6 @@ let garageCamera = null;
 
 // Update the projection matrix for the initial aspect ratio
 camera.updateProjectionMatrix();
-
-const renderer = new THREE.WebGLRenderer({
-  antialias: true,
-  logarithmicDepthBuffer: true,
-});
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
 
 // for Orbital Controls later
 let controls;
@@ -119,7 +119,7 @@ loader.load(
         }
       }
     });
-
+    
 
     // camera values
     kitchenCamera = gltf.cameras.find((camera) => camera.name === 'KLV_camera');
