@@ -1,4 +1,8 @@
 # BEEP! BOOP! (Beta)
-#### Beneficial Energy Efficency Project! Burning Out Outdated Practices!
+#### Beneficial Energy Efficency Project! Banishing Our Outdated Practices!
 
-BEEP! BOOP! is a simple 2.5D webpage built using [Three.js](https://github.com/mrdoob/three.js). The project aims to provide information on net zero homes through an interactive medium.
+Many individuals feel powerless in addressing climate change, believing their actions have minimal impact. Many feel as if it is not up to ourselves to make a difference. However, [42% of energy related emissions come from residential homes](https://www.rewiringamerica.org/research/energy-related-emissions-facts-and-data). Those 42% aren't in the hands of companies, but homeowners themselves. Perhaps they don't know about the alternatives that avoid fossil fuels. Maybe the idea of switching is too expensive. BEEP! BOOP! can provide the basic information to aid in a potential transition.
+  
+BEEP! BOOP! is a simple 2.5D webpage built using [Three.js](https://github.com/mrdoob/three.js) that introduces users to a net zero home. Through dynamic camera navigation, users can explore the various components integral to sustainable living, such as electric vehicles, solar panels, and heat pumps. This engaging experience not only educates, but also provides information on how individuals can embrace eco-friendly technologies in their homes. 
+  
+The 2.5D design is a unique blend of both two dimensional and three dimensional graphics. With this approach, environments and objects are rendered with 3D depth and perspective, yet all the assets within it are composed of 2D planes. It allows for an optimized performance without the heavy load of the typical 3D model while still holding a lot of detail. As a result, BEEP! BOOP! operates seamlessly across various web browsers and devices, ensuring accessibility for all users. 
