@@ -561,7 +561,6 @@ function onMouseMove(event) {
     } else {
       epPointFlag = false;
     }
-    console.log(epPointFlag);
 
     // solar panel intersections
     const spIntersections = raycaster.intersectObjects(getObjectsByName(scene, 'EX_solarPanels'), true);
