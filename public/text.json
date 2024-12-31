@@ -43,10 +43,17 @@
   "ev": {
     "title": "Electric Vehicles",
     "sequence": [
-      "Electric vehicles (EVs) are key to the transition away from fossil fuels. EVs produce zero tailpipe emissions",
+      "Electric vehicles (EVs) are key to the transition away from fossil fuels. EVs produce zero tailpipe emissions.",
       "EVs are more energy efficient than their gasoline counterparts. As a result, their fuel costs are much lower. <a href='https://www.fueleconomy.gov/feg/Find.do?action=sbsSelect#' target='_blank'>Fuel economy</a> is a great resource for seeing the sheer difference between fuel costs. Let us take a look at two different cars released in the same year: the Nissan LEAF  EV and the Nissan Versa.\n\nThe Nissan Versa is known to have a great fuel economy, yet the Nissan LEAF is estimated to save $3,000 more."
     ]
+  },
+  "airHandler": {
+    "title": "Air Handler",
+    "sequence": [
+      ""
+    ]
   }
+
 
 }
 

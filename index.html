@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/public/styles.css">
   <script type="importmap">
     {
       "imports": {
@@ -17,13 +17,13 @@
 
 <body>
   <div class="menu-screen">
-    <img class="beepboop" src=".\images\BEEPBOOP.png" />
+    <img class="beepboop" src="./public/images/BEEPBOOP.png" />
     <div class="remote">
 
       <!-- on button -->
       <div class="button">
         <div class="beepboopText">BEEP</div>
-        <img id="turnOn" class="onOffButton" src="./images/onButton.png" />
+        <img id="turnOn" class="onOffButton" src="./public/images/onButton.png" />
         <div class="acronym">
           Beneficial Energy
           <br />
@@ -39,7 +39,7 @@
       <!-- off button-->
       <div class="button">
         <div class="beepboopText">BOOP</div>
-        <img id="turnOff" class="onOffButton" src="./images/offButton.png" />
+        <img id="turnOff" class="onOffButton" src="./public/images/offButton.png" />
         <div class="acronym">
           Burning Out
           <br />
@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    <img id="return" class="returnButton" src=".\images\returnButton.svg" />
+    <img id="return" class="returnButton" src=".\public\images\returnButton.svg" />
 
     <div id="popup" class="popup" style="display: none;">
       <div class="popupHeader">
@@ -70,7 +70,7 @@
     </div>
     
     <canvas id="three-canvas"></canvas>
-   <script src="main.js" type="module"></script>
+   <script src="public/main.js" type="module"></script>
 </body>
 </html>
 

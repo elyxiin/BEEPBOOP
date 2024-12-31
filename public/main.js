@@ -67,7 +67,7 @@ scene.add(skybox);
 // loads the GLTF model
 const loader = new GLTFLoader();
 loader.load(
-  './models/NetZeroHomeV1.0.gltf', 
+  './public/models/NetZeroHomeV1.0.gltf', 
   (gltf) => {
 
     gltf.scene.traverse((child) => {
@@ -172,8 +172,9 @@ loader.load(
     document.getElementById('turnOff').addEventListener('click', () => {
       document.querySelector('.menu-screen').style.display = 'none';
       camera.copy(exteriorCamera);
-      menuFlag = false;
-      setVisibility(scene, ['K_Oven'], false);
+      setVisibility(scene, ['K_gasStove'], false);
+      // menuFlag = false;
+      // setVisibility(scene, ['K_Oven'], false);
     });
 
   },
