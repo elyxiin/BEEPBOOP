@@ -121,8 +121,6 @@ loader.load(
     });
 
 
-
-
     // camera values
     kitchenCamera = gltf.cameras.find((camera) => camera.name === 'KLV_camera');
     exteriorCamera = gltf.cameras.find((camera) => camera.name === 'EX_camera');
@@ -290,7 +288,7 @@ let popupMessages = {};
 
 let initialPopupMessages = {}; // without it, popup messages kept clearing
 
-fetch('text.json')
+fetch('public/text.json')
   .then(response => response.json())
   .then(data => {
     popupMessages = { ...data };
@@ -540,7 +538,7 @@ function onMouseMove(event) {
   
     // hybrid water heater intersections
     const waterIntersections = raycaster.intersectObjects(getObjectsByName(scene, 'G_waterHeater'), true);
-    if (waterIntersections.length > 0) {
+    if (waterIntersections.length > 0&&garageFlag) {
       hwhPointFlag = true;
     } else {
       hwhPointFlag = false;
@@ -559,20 +557,19 @@ function onMouseMove(event) {
     if (epIntersections.length > 0) {
       if (!isPopupVisible&&menuFlag){
         epPointFlag = true;
-      } else {
-        epPointFlag = false;
-      }
+      } 
+    } else {
+      epPointFlag = false;
     }
+    console.log(epPointFlag);
 
     // solar panel intersections
     const spIntersections = raycaster.intersectObjects(getObjectsByName(scene, 'EX_solarPanels'), true);
-    if (spIntersections.length > 0) {
-      if (!isPopupVisible&&menuFlag) {
+    if (spIntersections.length > 0&&!isPopupVisible&&menuFlag) {
         spPointFlag = true;
       } else {
         spPointFlag = false;
       }
-    }
 
     // car intersections
     const car = getObjectsByPrefix(scene,"G_car", true);
@@ -582,21 +579,22 @@ function onMouseMove(event) {
       } else {
         carFlag = false;
       }
+      
     
     if (carFlag) {
       if (!isPopupVisible&&garageFlag) {
         evPointFlag = true;
+      } 
       } else {
         evPointFlag = false;
         }
-      }
     carCount = 0;
 
     
        
   
     
-      if(wPointFlag||oPointFlag||gPointFlag||hwhPointFlag||hpoPointFlag||evPointFlag){
+      if(wPointFlag||oPointFlag||gPointFlag||hwhPointFlag||hpoPointFlag||evPointFlag||epPointFlag||spPointFlag){
         document.body.style.cursor = 'pointer';
       } else {
         document.body.style.cursor = 'default';
