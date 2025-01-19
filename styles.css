@@ -71,6 +71,7 @@ html, body {
   align-items: center;
   justify-content: center;
 }
+
 .beepboopText {
   color: #fdf3f0;
   text-align: center;
@@ -114,8 +115,6 @@ html, body {
   top: 90%;
 }
 
-
-
 /* return button */
 
 .returnButton,
@@ -142,7 +141,6 @@ canvas {
     width: 100vw;
     height: 100vh;
 } 
-
 
 /* Pop-Up Styles */
 .popup {
@@ -200,3 +198,48 @@ canvas {
   color: #fdf3f0; /* Light color for hover */
 }
 
+/* Preloader container */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fdf3f0; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+/* TV container */
+#tv-container {
+  width: 200px;
+  height: 150px;
+  border: 8px solid #333;
+  border-radius: 10px;
+  background: #bbbff3;
+  box-shadow: 0 0 20px rgba(32, 55, 129, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+/* TV screen (filling with color) */
+#tv-screen {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 0;
+  background: linear-gradient(to top, #b19ddd, #7c8bdd, #7aa8ce); 
+  animation: fillScreen 1s ease-in-out forwards; 
+}
+
+/* Keyframes for the filling animation */
+@keyframes fillScreen {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%; 
+  }
+}

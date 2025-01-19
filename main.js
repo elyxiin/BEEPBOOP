@@ -1,3 +1,22 @@
+// preloader
+const preloader = document.getElementById('preloader');
+const minLoadingTime = 1000; // in milliseconds, 1 second
+const startTime = Date.now(); 
+
+window.addEventListener('load', () => {
+  const elapsedTime = Date.now() - startTime;
+  const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+
+  setTimeout(() => {
+    preloader.style.opacity = '0';
+    preloader.style.transition = 'opacity 0.5s ease';
+
+    setTimeout(() => {
+      preloader.style.display = 'none';
+    }, 500);
+  }, remainingTime);
+});
+
 // Import Three.js and GLTFLoader
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -100,13 +119,7 @@ loader.load(
         ) 
         {
           child.renderOrder = 10;
-        } else if (
-          child.name === '' // potentially need???
-        ) 
-        {
-          child.renderOrder = 1000;
-        }
-        else if (material && material.transparent) {
+        } else if (material && material.transparent) {
           // transparent objects are sorted from back to front based on the distance to the camera
           child.renderOrder = camera.position.distanceToSquared(child.position);
           material.depthWrite = false; 
@@ -128,6 +141,10 @@ loader.load(
 
     // adds loaded model
     scene.add(gltf.scene);
+
+    // for preloader timed loading
+    const elapsedTime = Date.now() - startTime;
+    const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
     
     // initializes Orbit Controls
     controls = new OrbitControls(camera,renderer.domElement);
@@ -154,8 +171,6 @@ loader.load(
 
     // -------- menu buttons -------- //
 
-   
-    
     // turn on button
     document.getElementById('turnOn').addEventListener('click', () => {
       document.querySelector('.menu-screen').style.display = 'none';
@@ -175,6 +190,15 @@ loader.load(
       // setVisibility(scene, ['K_Oven'], false);
     });
 
+        // hides the preloader
+        setTimeout(() => {
+          preloader.style.opacity = '0'; 
+          preloader.style.transition = 'opacity 0.5s ease';
+    
+          setTimeout(() => {
+            preloader.style.display = 'none'; 
+          }, 500);
+        }, remainingTime);
   },
 
   // if it fails to load
