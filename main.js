@@ -1,21 +1,34 @@
 // preloader
 const preloader = document.getElementById('preloader');
+const tvScreen = document.getElementById('tvScreen');
 const minLoadingTime = 1000; // in milliseconds, 1 second
 const startTime = Date.now(); 
+const loadingManager = new THREE.LoadingManager();
 
-window.addEventListener('load', () => {
+// progress TV
+
+loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
+  const progress = (itemsLoaded / itemsTotal) * 100;
+  tvScreen.style.height = `${progress}%`;
+};
+
+// when all assets are loaded
+loadingManager.onLoad = () => {
+  console.log('All assets loaded.');
+
+  // animations last designated time
   const elapsedTime = Date.now() - startTime;
   const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
 
   setTimeout(() => {
-    preloader.style.opacity = '0';
+    preloader.style.opacity = '0'; 
     preloader.style.transition = 'opacity 0.5s ease';
 
     setTimeout(() => {
-      preloader.style.display = 'none';
-    }, 500);
+      preloader.style.display = 'none'; 
+    }, 500); 
   }, remainingTime);
-});
+};
 
 // Import Three.js and GLTFLoader
 import * as THREE from 'three';
@@ -84,7 +97,7 @@ scene.add(skybox);
 
 
 // loads the GLTF model
-const loader = new GLTFLoader();
+const loader = new GLTFLoader(loadingManager);
 loader.load(
   './public/models/NetZeroHomeV1.0.gltf', 
   (gltf) => {
@@ -141,10 +154,6 @@ loader.load(
 
     // adds loaded model
     scene.add(gltf.scene);
-
-    // for preloader timed loading
-    const elapsedTime = Date.now() - startTime;
-    const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
     
     // initializes Orbit Controls
     controls = new OrbitControls(camera,renderer.domElement);
@@ -190,15 +199,6 @@ loader.load(
       // setVisibility(scene, ['K_Oven'], false);
     });
 
-        // hides the preloader
-        setTimeout(() => {
-          preloader.style.opacity = '0'; 
-          preloader.style.transition = 'opacity 0.5s ease';
-    
-          setTimeout(() => {
-            preloader.style.display = 'none'; 
-          }, 500);
-        }, remainingTime);
   },
 
   // if it fails to load
