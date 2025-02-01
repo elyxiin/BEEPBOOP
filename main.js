@@ -14,8 +14,6 @@ loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
 
 // when all assets are loaded
 loadingManager.onLoad = () => {
-  console.log('All assets loaded.');
-
   // animations last designated time
   const elapsedTime = Date.now() - startTime;
   const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
@@ -95,11 +93,10 @@ const skybox = new THREE.Mesh(geometry, material);
 // Set the scene background to the skybox
 scene.add(skybox);       
 
-
 // loads the GLTF model
 const loader = new GLTFLoader(loadingManager);
 loader.load(
-  './public/models/NetZeroHomeV1.0.gltf', 
+  './public/models/NetZeroHomeV1.1.gltf', 
   (gltf) => {
 
     gltf.scene.traverse((child) => {
@@ -115,9 +112,7 @@ loader.load(
           || child.name === 'G_waterHeater'
           || child.name.startsWith('G_car')
           || child.name === 'EXG_stone'
-          || child.name === 'EXG_stoneWall1'
-          || child.name === 'EXG_stoneWall2'
-          || child.name === 'EXG_stoneWall3'
+          || child.name === 'G_counter'
           ) 
         {
           // more fixes for rendering order of specific objects
@@ -125,18 +120,34 @@ loader.load(
           material.depthWrite = true; 
           material.depthTest = true; 
         } else if (
-          
-           child.name === 'EX_brickWallBack'
-          || child.name === 'EX_heatPump'
-          || child.name === 'EX_backRoof'
-        ) 
+          child.name === 'G_shelf1'
+         
+        )
         {
-          child.renderOrder = 10;
+          child.renderOrder = -15;
         } else if (material && material.transparent) {
           // transparent objects are sorted from back to front based on the distance to the camera
           child.renderOrder = camera.position.distanceToSquared(child.position);
           material.depthWrite = false; 
           material.depthTest = true;   
+        } else if (
+           child.name === 'EX_brickWallBack'
+          || child.name === 'EX_heatPump'
+          || child.name === 'EX_backRoof'
+          || child.name === 'G_boxT1N2'
+          || child.name === 'G_boxT1N1'
+          || child.name === 'G_shelf2'
+          
+         
+        ) 
+        {
+          child.renderOrder = 10;
+        } else if ( 
+          child.name === 'EXG_stoneWall1'
+          || child.name === 'EXG_stoneWall2'
+          || child.name === 'EXG_stoneWall3'
+        ) {
+          child.renderOrder = -100;
         } else {
           // opaque objects render first
           child.renderOrder = -200;
@@ -179,22 +190,22 @@ loader.load(
     animate();
 
     // -------- menu buttons -------- //
-
     // turn on button
+    toggleReturnButton(false);
     document.getElementById('turnOn').addEventListener('click', () => {
       document.querySelector('.menu-screen').style.display = 'none';
       camera.copy(exteriorCamera);
       menuFlag = true;
       setVisibility(scene, ['K_gasStove'], false);
 
-
     });
 
     // turn off button
+    toggleReturnButton(false);
     document.getElementById('turnOff').addEventListener('click', () => {
       document.querySelector('.menu-screen').style.display = 'none';
       camera.copy(exteriorCamera);
-      setVisibility(scene, ['K_gasStove'], false);
+      setVisibility(scene, ['K_gasStove'], true);
       // menuFlag = false;
       // setVisibility(scene, ['K_Oven'], false);
     });
@@ -234,6 +245,32 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
 
 });
+
+// fixes clicking through menu
+window.onload = function () {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  renderer.setSize(width, height);
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+  const threeCanvas = document.querySelector('canvas');
+  const buttons = document.querySelectorAll('#turnOn, #turnOff'); 
+
+  function temporarilyDisableCanvasClicks() {
+    threeCanvas.style.pointerEvents = 'none'; 
+    setTimeout(() => {
+      threeCanvas.style.pointerEvents = 'auto'; 
+    }, 100); 
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.stopPropagation(); 
+      temporarilyDisableCanvasClicks();
+    });
+  });
+}
 
 function getObjectsByName(scene, name) {
   const objects = [];
@@ -401,9 +438,14 @@ function isIntersecting(part) {
    }
 }
 
+let clickLock = false;
+
 // clicking on objects to activate pop-ups or move rooms
 document.addEventListener('click', onClick);
 function onClick(event){
+
+  if(clickLock) return;
+  clickLock = true;
 
   const coords = new THREE.Vector2(
     (event.clientX / renderer.domElement.clientWidth)*2 - 1,
@@ -418,103 +460,89 @@ function onClick(event){
       toggleReturnButton(false);
     }
 
-   // window intersections
-   const windowIntersections = raycaster.intersectObjects(getObjectsByName(scene,'EXLV_mainWinStainedGlass'), true);
-    if(windowIntersections.length > 0&&exteriorFlag){
-      
-      const notKLR = getObjectsByPrefix(scene, "G").concat(getObjectsByPrefix(scene, "EX"));
-      setVisibility(scene,notKLR,false);
-      exteriorFlag = false;
-      ovenFlag = true;
-      kitchenFlag=true;
-      changeCamera(kitchenCamera);
-
-     }
-
-  // oven intersections
-  const ovenIntersections = raycaster.intersectObjects(getObjectsByName(scene, 'K_Oven'), true);
-  if (ovenIntersections.length > 0) {
-    if (!isPopupVisible&&menuFlag) {
-    currentPageIndex = 0;
-      showPopup(popupMessages.oven);
-      ovenFlag = false; 
-    }
-  }
-
-  // garage door intersections
-  const gDoorIntersections = raycaster.intersectObjects(getObjectsByName(scene,'EXG_bigDoor'), true);
-  if(gDoorIntersections.length > 0&&(exteriorFlag)){
-
-    const notGarage = getObjectsByPrefix(scene, "K").concat(getObjectsByPrefix(scene, "LR")).concat(getObjectsByPrefix(scene, "EX"));
-    setVisibility(scene,notGarage,false);
-    setVisibility(scene, getObjectsByPrefix(scene,"EXG_stoneWall3"),true)
-    exteriorFlag = false;
-    garageFlag = true;
-    changeCamera(garageCamera);
+    raycaster.setFromCamera(coords, camera);
+    const intersections = raycaster.intersectObjects(scene.children, true);
+    const visibleIntersections = intersections.filter(intersection => intersection.object.visible);
     
+    if (visibleIntersections.length === 0) {
+      clickLock = false; 
+      return; // no visible objects clicked
     }
 
-  // hybrid water heater intersections
-   const waterIntersections = raycaster.intersectObjects(getObjectsByName(scene, 'G_waterHeater'), true);
-   if (waterIntersections.length > 0) {
-     if (!isPopupVisible&&menuFlag&&garageFlag) {
-       currentPageIndex = 0;
-       showPopup(popupMessages.water);
-     }
-   }
+    let firstHit = visibleIntersections[0].object;
 
-  // heat pump outdoors intersections
-  const hpIntersections = raycaster.intersectObjects(getObjectsByName(scene, 'EX_heatPump'), true);
-  if (hpIntersections.length > 0) {
-    if (!isPopupVisible&&menuFlag&&exteriorFlag) {
-      currentPageIndex = 0;
-      showPopup(popupMessages.airSourceHP);
-    }
-  }
+    switch (firstHit.name) {
+      case "EXLV_mainWinStainedGlass":
 
-  // electric pole intersections
-  const epIntersections = raycaster.intersectObjects(getObjectsByName(scene, 'EX_electricPole'), true);
-  if (epIntersections.length > 0) {
-    if (!isPopupVisible&&menuFlag&&exteriorFlag) {
-      currentPageIndex = 0;
-      showPopup(popupMessages.grid);
+        if (exteriorFlag) {
+          const notKLR = getObjectsByPrefix(scene, "G").concat(getObjectsByPrefix(scene, "EX"));
+          setVisibility(scene, notKLR, false);
+          exteriorFlag = false;
+          ovenFlag = true;
+          kitchenFlag = true;
+          changeCamera(kitchenCamera);
+        }
+        break;
+  
+      case "K_Oven":
+        if (!isPopupVisible && menuFlag) {
+          currentPageIndex = 0;
+          showPopup(popupMessages.oven);
+          ovenFlag = false;
+        }
+        break;
+  
+      case "EXG_bigDoor":
+        if (exteriorFlag) {
+          const notGarage = getObjectsByPrefix(scene, "K").concat(getObjectsByPrefix(scene, "LR")).concat(getObjectsByPrefix(scene, "EX"));
+          setVisibility(scene, notGarage, false);
+          setVisibility(scene, getObjectsByPrefix(scene, "EXG_stoneWall3"), true);
+          exteriorFlag = false;
+          garageFlag = true;
+          changeCamera(garageCamera);
+        }
+        break;
+  
+      case "G_waterHeater":
+        if (!isPopupVisible && menuFlag && garageFlag) {
+          currentPageIndex = 0;
+          showPopup(popupMessages.water);
+        }
+        break;
+  
+      case "EX_heatPump":
+        if (!isPopupVisible && menuFlag && exteriorFlag) {
+          currentPageIndex = 0;
+          showPopup(popupMessages.airSourceHP);
+        }
+        break;
+  
+      case "EX_electricPole":
+        if (!isPopupVisible && menuFlag && exteriorFlag) {
+          currentPageIndex = 0;
+          showPopup(popupMessages.grid);
+        }
+        break;
+  
+      case "EX_solarPanels":
+        if (!isPopupVisible && menuFlag && exteriorFlag) {
+          currentPageIndex = 0;
+          showPopup(popupMessages.sPanels);
+        }
+        break;
+  
+      default:
+        if (firstHit.name.startsWith("G_car") && garageFlag) {
+          currentPageIndex = 0;
+          showPopup(popupMessages.ev);
+        }
+        break;
     }
-  }
-  // solar panel intersections
-  const spIntersections = raycaster.intersectObjects(getObjectsByName(scene, 'EX_solarPanels'), true);
-  if (spIntersections.length > 0) {
-    if (!isPopupVisible&&menuFlag&&exteriorFlag) {
-      currentPageIndex = 0;
-      showPopup(popupMessages.sPanels);
-    }
-  }
-
-  //car intersections
-  const car = getObjectsByPrefix(scene,"G_car", true);
-  car.forEach(isIntersecting);
-  if (carCount>0){
-      carFlag = true;
-    } else {
-      carFlag = false;
-    }
-    
-  if (carFlag) {
-    if (!isPopupVisible&&garageFlag) {
-        currentPageIndex = 0;
-        showPopup(popupMessages.ev);
-      }
-    }
-    carCount = 0;
-    updateButtonVisibility();
+    setTimeout(() => {
+      clickLock = false;
+    }, 100);
 }
 
-const clickableObjects = [
-  getObjectsByName(scene, 'EXLV_mainWinStainedGlass'),
-  getObjectsByName(scene, 'K_Oven'),
-  getObjectsByName(scene, 'EXG_bigDoor'),
-  getObjectsByName(scene, 'G_waterHeater'),
-  getObjectsByName(scene, 'EX_heatPump')
-];
 
 document.addEventListener('mousemove', onMouseMove);
 
@@ -613,10 +641,6 @@ function onMouseMove(event) {
         }
     carCount = 0;
 
-    
-       
-  
-    
       if(wPointFlag||oPointFlag||gPointFlag||hwhPointFlag||hpoPointFlag||evPointFlag||epPointFlag||spPointFlag){
         document.body.style.cursor = 'pointer';
       } else {
@@ -624,9 +648,6 @@ function onMouseMove(event) {
       }
     
 }
-
-
-
 // =========================== return button time =========================== //
 const returnButton = document.getElementById('return');
 
@@ -655,6 +676,8 @@ clickReturnButton(() => {
   exteriorFlag = true;
   garageFlag = false;
   setVisibility(scene, getObjectsByPrefix(scene,""), true);
+
+  setVisibility(scene, 'EXG_stoneWall2', true);
   toggleReturnButton(false);
 });
 

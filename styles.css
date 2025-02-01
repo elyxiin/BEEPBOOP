@@ -125,9 +125,9 @@ html, body {
   border-radius: 13px;
   width: 100px;
   height: 100px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
   z-index: 1;
   display: none; 
 }
